@@ -32,19 +32,10 @@
       },
       methods: {
         centerOnUser () {
-
+          this.$store.dispatch('login');
         },
         logout () {
-          if (!this.user) {
-            const userData = {
-              profile: {
-                displayName: 'Mr Cat',
-              },
-            }
-            this.$store.commit('user', userData)
-          } else {
-            this.$store.commit('user', null);
-          }
+          this.$store.dispatch('logout');
         },
       },
     }
