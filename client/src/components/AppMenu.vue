@@ -24,10 +24,10 @@
       name: "AppMenu",
       computed: {
         user () {
-          return this.$store.state.user;
+          return this.$store.getters.user;
         },
         userPicture () {
-          return null; // TODO
+          return this.$store.getters.userPicture;
         },
       },
       methods: {
@@ -35,7 +35,16 @@
 
         },
         logout () {
-
+          if (!this.user) {
+            const userData = {
+              profile: {
+                displayName: 'Mr Cat',
+              },
+            }
+            this.$store.commit('user', userData)
+          } else {
+            this.$store.commit('user', null);
+          }
         },
       },
     }
