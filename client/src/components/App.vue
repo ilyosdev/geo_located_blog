@@ -1,5 +1,7 @@
 <template>
-
+  <div class="app">
+    <router-view />
+  </div>
 </template>
 
 <script>
@@ -8,6 +10,6 @@
     }
 </script>
 
-<style scoped>
-
+<style lang="stylus">
+  @import '../styles/main';
 </style>
