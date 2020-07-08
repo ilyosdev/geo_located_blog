@@ -18,7 +18,10 @@
     </div>
   </div>
 </template>
-
+<!--
+ID 448467644899-eresjpg25as9o3c2o9eih42durqbdul2.apps.googleusercontent.com
+Secret YB1_OL_053NQCQCsLvKPNTFp
+-->
 <script>
     import { mapGetters, mapActions } from 'vuex';
 
