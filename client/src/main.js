@@ -1,5 +1,6 @@
 import 'babel-polyfill';
 import Vue from 'vue';
+import { sync } from 'vuex-router-sync';
 
 import VueFetch, { $fetch } from './plugins/fetch';
 import App from './components/App.vue';
@@ -16,7 +17,11 @@ Vue.use(VueFetch, {
   baseUrl: 'http://localhost:3000/',
 });
 
-function main () {
+sync(store, router);
+
+async function main () {
+  await store.dispatch('init');
+
   new Vue({
     ...App,
     el: '#app',
