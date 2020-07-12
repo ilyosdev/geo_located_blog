@@ -1,4 +1,5 @@
 import router from '../router';
+import store from '../store';
 
 let baseUrl;
 
@@ -15,17 +16,10 @@ export async function $fetch (url, options) {
   if (response.ok) {
     return await response.json();
   } else if (response.status === 403) {
-    /*// If the session is no longer valid
+    // If the session is no longer valid
     // We logout
-    state.user = null
-    // If the route is private
-    // We go to the login screen
-    if (router.currentRoute.matched.some(r => r.meta.private)) {
-      router.replace({
-        name: 'login',
-        params: { wantedRoute: router.currentRoute.fullPath,}
-      });
-    }*/
+    store.dispatch('logout');
+
   } else {
     const message = await response.text();
     const error = new Error(message);
