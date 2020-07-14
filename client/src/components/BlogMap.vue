@@ -6,7 +6,11 @@
       :options="mapOptions"
       @update:center="setCenter"
       @update:zoom="setZoom"
-    />
+    >
+      <googlemaps-user-position
+        @update:position="setUserPosition"
+      />
+    </googlemaps-map>
   </div>
 </template>
 
@@ -36,7 +40,8 @@
         },
         methods: mapActions([
           'setCenter',
-          'setZoom'
+          'setZoom',
+          'setUserPosition'
         ])
     }
 </script>
