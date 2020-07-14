@@ -1,6 +1,7 @@
 import 'babel-polyfill';
 import Vue from 'vue';
 import { sync } from 'vuex-router-sync';
+import VueGoogleMaps from 'vue-googlemaps';
 
 import VueFetch, { $fetch } from './plugins/fetch';
 import App from './components/App.vue';
@@ -15,6 +16,13 @@ for (const key in filters) {
 
 Vue.use(VueFetch, {
   baseUrl: 'http://localhost:3000/',
+});
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    apiKey: 'AIzaSyBl_r42YN1g-pY3DVsy_0x3k15f0-oOJeo',
+    libraries: ['places'],
+  },
 });
 
 sync(store, router);
