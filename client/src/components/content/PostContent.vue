@@ -39,7 +39,7 @@
           }
 
           return (
-            <div className={this.cssClass}>
+            <div class={this.cssClass}>
               <LocalInfo />
               <Content />
             </div>

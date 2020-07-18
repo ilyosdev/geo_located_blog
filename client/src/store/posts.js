@@ -50,7 +50,7 @@ export default {
       if (!getters.draft) {
         dispatch('createDraft');
       }
-
+      console.log(getters.draft)
       dispatch('updateDraft', {
         position,
         placeId

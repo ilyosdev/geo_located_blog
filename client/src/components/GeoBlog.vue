@@ -5,13 +5,15 @@
 
     export default {
       render (h) {
-        return <div className="geo-blog">
-          <AppMenu />
-          <div class="panes">
-            <BlogMap />
-            <BlogContent />
+        return (
+          <div class="geo-blog">
+            <AppMenu />
+            <div class="panes">
+              <BlogMap />
+              <BlogContent />
+            </div>
           </div>
-        </div>
+        )
       }
     }
 </script>
