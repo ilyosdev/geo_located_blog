@@ -1,3 +1,5 @@
+import {$fetch} from "../plugins/fetch";
+
 export default {
   namespaced: true,
   state () {
@@ -55,6 +57,25 @@ export default {
         position,
         placeId
       });
+    },
+    async createPost({ commit, dispatch }, draft) {
+      const data = {
+        ...draft,
+        position: draft.position.toJSON()
+      };
+
+      const result = await $fetch('posts/new', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      });
+      dispatch('clearDraft');
+
+      // Update the posts list
+      commit('addPost', result);
+      dispatch('selectPost', result._id);
+    },
+    async selectPost ({ commit }, id) {
+      commit('selectedPostId', id);
     },
     updateDraft({ dispatch, commit, getters }, draft) {
       commit('updateDraft', draft);
