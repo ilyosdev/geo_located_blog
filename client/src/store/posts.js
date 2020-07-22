@@ -1,4 +1,6 @@
-import {$fetch} from "../plugins/fetch";
+import { $fetch } from "../plugins/fetch";
+
+let fetchPostsUid = 0;
 
 export default {
   namespaced: true,
@@ -79,6 +81,27 @@ export default {
     },
     updateDraft({ dispatch, commit, getters }, draft) {
       commit('updateDraft', draft);
+    },
+    async fetchPosts ({ commit, state }, { mapBounds, force }) {
+      let oldBounds = state.mapBounds;
+
+      if (force || !oldBounds || !oldBounds.equals(mapBounds)) {
+        const requestId = ++fetchPostsUid;
+
+        // Request
+        const ne = mapBounds.getNorthEast();
+        const sw = mapBounds.getSouthWest();
+        const query = `posts?
+          ne=${encodeURIComponent(ne.toUrlValue())}
+          &sw=${encodeURIComponent(sw.toUrlValue())}`;
+
+        const posts = await $fetch(query);
+
+        // We abort if we started another query
+        if (requestId === fetchPostsUid) {
+          commit('posts', { posts, mapBounds });
+        }
+      }
     }
   }
 }
