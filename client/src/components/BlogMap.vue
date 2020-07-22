@@ -14,12 +14,27 @@
         @update:position="setUserPosition"
       />
       <googlemaps-marker
+        v-for="post of posts"
+        :key="post._id"
+        :label="{
+          color: post === currentPost ? 'white' : 'black',
+          fontFamily: 'Material Icons',
+          fontSize: '20px',
+          text: 'face',
+        }"
+        :position="post.position"
+        :z-index="5"
+        @click="selectPost(post._id)"
+      />
+
+      <!-- New post marker -->
+      <googlemaps-marker
         v-if="draft"
         :clickable="false"
         :label="{
-        color: 'white',
-        fontFamily: 'Material Icons',
-        text: 'add_circle',
+          color: 'white',
+          fontFamily: 'Material Icons',
+          text: 'add_circle',
         }"
         :opacity=".75"
         :position="draft.position"
@@ -56,6 +71,8 @@
         ]),
         ...postsGetters([
           'draft',
+          'posts',
+          'currentPost',
         ]),
         mapOptions() {
           return {
@@ -71,6 +88,7 @@
           'setUserPosition'
         ]),
         ...postsActions([
+          'selectPost',
           'setDraftLocation',
         ]),
         onMapClick(event) {
