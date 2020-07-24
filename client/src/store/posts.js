@@ -95,13 +95,38 @@ export default {
           ne=${encodeURIComponent(ne.toUrlValue())}
           &sw=${encodeURIComponent(sw.toUrlValue())}`;
 
+        console.log('posts')
         const posts = await $fetch(query);
+
 
         // We abort if we started another query
         if (requestId === fetchPostsUid) {
           commit('posts', { posts, mapBounds });
         }
       }
-    }
+    },
+    logout: {
+      handler ({ commit }) {
+        commit('posts', {
+          posts: [],
+          mapBounds: null,
+        })
+      },
+      root: true,
+    },
+    'logged-in': {
+      handler ({ dispatch, state }) {
+        if (state.mapBounds) {
+          dispatch('fetchPosts', {
+            mapBounds: state.mapBounds,
+            force: true,
+          });
+        }
+        if (state.selectedPostId) {
+          dispatch('selectPost', state.selectedPostId);
+        }
+      },
+      root: true,
+    },
   }
 }

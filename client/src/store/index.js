@@ -40,12 +40,13 @@ const store = new Vuex.Store({
     async init ({ dispatch }) {
       await dispatch('login');
     },
-    async login({ commit }) {
+    async login({ commit, dispatch }) {
       try {
         const user = await $fetch('user');
         commit('user', user);
 
         if (user) {
+          dispatch('logged-in');
           // Redirect to the wanted route if any or else to home
           router.replace(router.currentRoute.params.wantedRoute || { name: 'home' });
         }
