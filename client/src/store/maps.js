@@ -50,5 +50,13 @@ export default {
         dispatch('setCenter', position);
       }
     },
+    setBounds ({ dispatch }, value) {
+      console.log('updateBounds', 'maps store');
+      dispatch('posts/fetchPosts', {
+        mapBounds: value,
+      }, {
+        root: true,
+      });
+    },
   },
 }
